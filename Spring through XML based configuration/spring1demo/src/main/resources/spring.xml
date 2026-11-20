@@ -1,0 +1,46 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean definitions here -->
+
+<!-- Objects get created based on number of bean definitions -->
+<!-- by default the scope of the bean is singleton, which means only one object will be created for a bean definition. If we want to create multiple objects for a bean definition, we can use the prototype scope. -->
+
+    <!-- <bean id="alien1" class="com.swati.Alien" scope="prototype">
+    </bean> -->
+
+<!-- assiging the values through property injection -->
+    <bean id="alien1" class="com.swati.Alien" autowire="byName">  <!-- here for autowire we can aslo use bytype were it looks for the matching type but it gives error if multiple beans of same type are present and it can be resolved by setting the bean as primary along with id and class -->
+        <property name="age" value="30"></property>
+        <!-- <property name="com" ref="com"></property> --> <!-- this is not required as we have used autowire by name i.e., the property name (name of the object in the alien calss) matches the bean id -->
+        <property name="com" ref="com2"></property>
+    </bean>
+
+<!-- assigning the values through constructor injection -->
+<!-- also insted of name we can use type and index, but for name and type sequence should be maintained where as for index no need to maintain sequence-->
+    <!-- <bean id="alien1" class="com.swati.Alien">
+        <constructor-arg name="age" value="30"></constructor-arg>  
+        <constructor-arg name="lap" ref="lap1"></constructor-arg>
+    </bean> -->
+
+    <!-- to use name without maintaing sequenece through @constructor annotation we can use the below code
+    <bean id="alien1" class="com.swati.Alien">
+        <constructor-arg name="lap" ref="lap1"></constructor-arg>
+        <constructor-arg name="age" value="30"></constructor-arg>  
+    </bean> -->
+
+    <!-- <bean id="alien2" class="com.swati.Alien">
+    </bean> -->
+
+    <bean id="com1" class="com.swati.Laptop">
+    </bean>
+    <bean id="com2" class="com.swati.Desktop">
+    </bean>
+
+<!-- object will be not created by default, it creates only when we want to use it, this is called lazy initialization, it is used to save memory and improve performance
+    <bean id="com2" class="com.swati.Desktop" lazy-init="true">
+    </bean> -->
+
+</beans>
